@@ -100,7 +100,8 @@ response_timer = None
 
 @app.get("/getChatBotResponse")
 def get_bot_response(msg: str,request: Request):
-    current_user=str(request.headers.get("referer")).split('/')[3]
+    s=str(request.headers.get("referer"))
+    current_user=s[s.find('user'):s.find('getStart')-1]
     result = static.users[current_user].conversation(msg)
 
     global response_timer
